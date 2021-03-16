@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import {Card, Form, Button, Container} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-import {Navbar, Nav} from 'react-bootstrap'
 
 class Register extends React.Component {
     constructor () {
@@ -12,7 +10,7 @@ class Register extends React.Component {
             username: "",
             password: "",
             message: "",
-            logged: true
+            logged: false
         }
     }
     Register = event => {
@@ -27,13 +25,9 @@ class Register extends React.Component {
         
         axios.post(url, sendData)
         .then(response => {
-            this.setState({logged: response.data.logged})
+            this.setState({logged: true})
             if (this.state.logged) {
-                let user = response.data.data
-                let token = response.data.token
-                localStorage.setItem("user", JSON.stringify(user))
-                localStorage.setItem("token", token)
-                this.props.history.push("/")
+                this.setState({message: response.data.message})
             } else {
                 this.setState({message: response.data.message})
             }
@@ -46,7 +40,7 @@ class Register extends React.Component {
                 <Card className="col-sm-6 card my-5">
                 <Card.Header className="card-header bg-warning text-white text-center">REGISTER</Card.Header>
                 <Card.Body>
-                    { !this.state.logged ? 
+                    { this.state.logged ? 
                         (
                             <div className="alert alert-danger mt-1">
                                 { this.state.message }
@@ -57,19 +51,19 @@ class Register extends React.Component {
                         <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="Enter Email" value={this.state.email}
-                            onChange={ev => this.setState({email: ev.target.value})}/>
+                            onChange={ev => this.setState({email: ev.target.value})} required/>
                         </Form.Group>
 
                         <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>
                             <Form.Control type="text" placeholder="Enter Username" value={this.state.username}
-                            onChange={ev => this.setState({username: ev.target.value})}/>
+                            onChange={ev => this.setState({username: ev.target.value})} required/>
                         </Form.Group>
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" value={this.state.password}
                             onChange={ev => this.setState({password: ev.target.value})}
-                            autoComplete="false" />
+                            autoComplete="false" required/>
                         </Form.Group>
                     </Card.Text>
                     <Button variant="primary" type="submit">Submit</Button>

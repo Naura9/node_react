@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import {Card, Form, Button, Container} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-import {Navbar, Nav} from 'react-bootstrap'
 
 class Login extends React.Component {
     constructor () {
@@ -31,7 +29,7 @@ class Login extends React.Component {
                 let token = response.data.token
                 localStorage.setItem("user", JSON.stringify(user))
                 localStorage.setItem("token", token)
-                this.props.history.push("/pegawai")
+                this.props.history.push("/home")
             } else {
                 this.setState({message: response.data.message})
             }
