@@ -11,9 +11,11 @@ class NavBar extends React.Component {
     render(){
         return(
             <Navbar bg="light" variant="light">
-            <Navbar.Brand> <Link to='/'>Home</Link></Navbar.Brand>
+            <Navbar.Brand> <Link to='/home'>Home</Link></Navbar.Brand>
                 <Nav className="mr-auto">
                 <Nav.Link> <Link to='/pegawai'> Pegawai </Link></Nav.Link>
+                <Nav.Link> <Link to='/siswa'> Siswa </Link></Nav.Link>
+                <Nav.Link> <Link to='/pelanggaran'> Pelanggaran </Link></Nav.Link>
                 <Nav.Link onClick={() => this.Logout()}>Logout</Nav.Link>
                 </Nav>
             </Navbar>
